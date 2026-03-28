@@ -1,0 +1,9 @@
+venv/
+.env
+__pycache__/
+*.pyc
+data/raw/
+data/processed/
+airflow/logs/
+airflow/airflow.db
+*.parquet

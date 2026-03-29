@@ -1,0 +1,65 @@
+[
+  {
+    "category":"Books",
+    "sentiment_label":"negative",
+    "count":4995,
+    "avg_sentiment":-0.6159999967,
+    "avg_rating":3.3880000114
+  },
+  {
+    "category":"Books",
+    "sentiment_label":"neutral",
+    "count":1867,
+    "avg_sentiment":0.0,
+    "avg_rating":4.117000103
+  },
+  {
+    "category":"Books",
+    "sentiment_label":"positive",
+    "count":41428,
+    "avg_sentiment":0.8119999766,
+    "avg_rating":4.515999794
+  },
+  {
+    "category":"Clothing Shoes and Jewelry",
+    "sentiment_label":"negative",
+    "count":3411,
+    "avg_sentiment":-0.4519999921,
+    "avg_rating":2.5099999905
+  },
+  {
+    "category":"Clothing Shoes and Jewelry",
+    "sentiment_label":"neutral",
+    "count":2366,
+    "avg_sentiment":0.0,
+    "avg_rating":3.382999897
+  },
+  {
+    "category":"Clothing Shoes and Jewelry",
+    "sentiment_label":"positive",
+    "count":42860,
+    "avg_sentiment":0.7940000296,
+    "avg_rating":4.5390000343
+  },
+  {
+    "category":"Electronics",
+    "sentiment_label":"negative",
+    "count":5749,
+    "avg_sentiment":-0.474999994,
+    "avg_rating":2.6070001125
+  },
+  {
+    "category":"Electronics",
+    "sentiment_label":"neutral",
+    "count":3545,
+    "avg_sentiment":0.0,
+    "avg_rating":3.7400000095
+  },
+  {
+    "category":"Electronics",
+    "sentiment_label":"positive",
+    "count":38963,
+    "avg_sentiment":0.7440000176,
+    "avg_rating":4.5320000648
+  }
+]

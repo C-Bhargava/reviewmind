@@ -35,6 +35,16 @@ python pipeline/embed_and_index.py
 streamlit run app/dashboard.py
 ```
 
+## Orchestration
+Apache Airflow DAG (`airflow/dags/reviewmind_pipeline.py`) chains all
+pipeline steps on a daily 6am schedule:
+
+health_check → spark_clean → load_to_snowflake → embed_and_index → log_success
+
+Each task has retry logic (1 retry, 5min delay) and logs completion
+back to REVIEWMIND.PIPELINE.RUN_LOG in Snowflake.
+
+
 ## Sample outputs
 - [RAG agent demo](examples/sample_rag_run.txt)
 - [Spark job output](examples/sample_spark_run.txt)

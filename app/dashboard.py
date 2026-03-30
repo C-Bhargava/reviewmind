@@ -47,18 +47,6 @@ with tab1:
     st.subheader("Ask a question about customer reviews")
     st.write("Questions are answered using real retrieved reviews — not AI guesses.")
 
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        question = st.text_input(
-            "Your question",
-            placeholder="What do customers complain about most with electronics?"
-        )
-    with col2:
-        category = st.selectbox(
-            "Filter by category",
-            ["All", "Electronics", "Books", "Clothing Shoes and Jewelry"]
-        )
-
     # Quick-pick buttons
     st.caption("Try these:")
     examples = [
@@ -70,17 +58,42 @@ with tab1:
     cols = st.columns(4)
     for col, ex in zip(cols, examples):
         if col.button(ex, use_container_width=True):
-            st.session_state["q"] = ex
+            st.session_state["active_q"] = ex
+            st.session_state.pop("last_result", None)
+            st.session_state.pop("last_question", None)
 
-    question = st.session_state.get("q", question)
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        question = st.text_input(
+            "Your question",
+            value=st.session_state.get("active_q", ""),
+            placeholder="What do customers complain about most with electronics?"
+        )
+        # Keep active_q in sync with whatever the user types
+        if question:
+            st.session_state["active_q"] = question
+    with col2:
+        category = st.selectbox(
+            "Filter by category",
+            ["All", "Electronics", "Books", "Clothing Shoes and Jewelry"]
+        )
 
-    if st.button("Ask agent", type="primary") and question:
-        with st.spinner("Searching reviews and generating answer..."):
-            from agents.rag_agent import ask
-            cat_filter = None if category == "All" else category
-            result = ask(question, category_filter=cat_filter)
+    if st.button("Ask agent", type="primary"):
+        active_q = st.session_state.get("active_q", "").strip()
+        if active_q:
+            st.session_state["last_question"] = active_q
+            with st.spinner("Searching reviews and generating answer..."):
+                from agents.rag_agent import ask
+                cat_filter = None if category == "All" else category
+                result = ask(active_q, category_filter=cat_filter)
+                st.session_state["last_result"] = result
+        else:
+            st.warning("Please enter a question first.")
 
-        st.success(f"Answer (based on {result['reviews_used']} retrieved reviews)")
+    if "last_result" in st.session_state:
+        result   = st.session_state["last_result"]
+        last_q   = st.session_state.get("last_question", "")
+        st.success(f"Answer for: *{last_q}* — based on {result['reviews_used']} retrieved reviews")
         st.write(result["answer"])
 
         if result.get("top_reviews"):
